@@ -1,0 +1,20 @@
+{
+  "name": "autojitpack",
+  "version": "1.0.0",
+  "description": "Automatically send a request to JitPack after every release to save some headache",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badasintended/autojitpack.git"
+  },
+  "author": "deirn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/badasintended/autojitpack/issues"
+  },
+  "homepage": "https://github.com/badasintended/autojitpack#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
+}
