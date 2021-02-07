@@ -1,5 +1,8 @@
 name: "autojitpack"
 description: "Automatically send a request to JitPack after every release to save some headache"
+branding:
+  icon: "at-sign"
+  color: "green"
 runs:
   using: "node12"
   main: "dist/index.js"
