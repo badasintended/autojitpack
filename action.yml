@@ -1,5 +1,14 @@
 name: "autojitpack"
+author: "deirn"
 description: "Automatically send a request to JitPack after every release to save some headache"
+inputs:
+  version:
+    description: "Released version"
+    required: true
+  timeout:
+    description: "Timeout for the request, set to -1 to disable timeout and wait for jitpack to finish building"
+    default: "-1"
+    required: false
 branding:
   icon: "at-sign"
   color: "green"

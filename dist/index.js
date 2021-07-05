@@ -1,24 +1,5 @@
-module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
-/***/ 582:
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(576);
-const github = __nccwpck_require__(842);
-const https = __nccwpck_require__(211);
-
-var version = github.context.ref.replace(/refs[/].*[/]/, "");
-
-var url = "https://jitpack.io/com/github/" + github.context.repo.owner + "/" + github.context.repo.repo + "/" + version + "/build.log";
-
-core.info("Sending request to " + url);
-
-https.get(url, { timeout: 2000 });
-
-
-/***/ }),
 
 /***/ 117:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
@@ -5921,8 +5902,9 @@ module.exports = require("zlib");;
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -5947,10 +5929,35 @@ module.exports = require("zlib");;
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	__nccwpck_require__.ab = __dirname + "/";/************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(582);
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+const core = __nccwpck_require__(576);
+const github = __nccwpck_require__(842);
+const https = __nccwpck_require__(211);
+
+try {
+  let version = core.getInput("version", { required: true });
+  let timeout = parseInt(core.getInput("timeout"));
+  if (timeout == -1) {
+    timeout = undefined;
+  }
+  let repo = github.context.repo;
+
+  let url = `https://jitpack.io/com/github/${repo.owner}/${repo.repo}/${version}/build.log`;
+
+  core.info("Sending request to " + url);
+
+  let req = https.get(url, { timeout: timeout });
+  req.on("timeout", () => req.destroy());
+  req.on("error", () => req.destroy());
+} catch (error) {
+  core.setFailed(error.message);
+}
+
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;
